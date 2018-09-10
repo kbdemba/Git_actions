@@ -4,5 +4,5 @@ To run:
 
 ```bash
 pip install -r requirements.txt
-python sso_example.py
+flask run
 ```
