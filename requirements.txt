@@ -2,3 +2,7 @@ flask
 gunicorn
 pyOpenSSL
 python-dotenv
+flask-login
+flask-migrate
+flask-sqlalchemy
+requests

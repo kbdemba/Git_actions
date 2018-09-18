@@ -1,7 +1,6 @@
 // References to all the element we will need.
 var video = document.querySelector('#camera-stream'),
     start_camera = document.querySelector('#start-camera'),
-    take_photo_btn = document.querySelector('#take-photo'),
     error_message = document.querySelector('#error-message');
 
 
@@ -45,10 +44,6 @@ start_camera.addEventListener("click", function(e){
   video.classList.remove("invisible")
 });
 
-take_photo_btn.addEventListener("click", function(e){
-  e.preventDefault();
-  var snap = takeSnapshot();
-});
 
 function takeSnapshot(){
   // Here we're using a trick that involves a hidden canvas element.
@@ -71,21 +66,7 @@ function takeSnapshot(){
     // Turn the canvas image into a dataURL that can be used as a src for our photo.
     dataURL = hidden_canvas.toDataURL('image/png');
 
-    data = {
-        "img": dataURL.replace(/^data:image\/(png|jpg);base64,/, "")
-    }
-
-    var endpoint = "/identify"
-
-    $.ajax({
-      type: "POST",
-      url: endpoint,
-      data: JSON.stringify(data),
-      contentType: 'application/json',
-      processData: false
-    });
-
-    return dataURL
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "")
   }
 }
 
@@ -98,4 +79,51 @@ function displayErrorMessage(error_msg, error){
 
   error_message.innerText = error_msg;
   error_message.classList.add("visible");
+}
+
+function post(path, params, method) {
+    method = method || "post"; // Set method to post by default if not specified.
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+        }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
+function signUp(){
+    var endpoint = "/sign_up"
+    var snap = takeSnapshot();
+    var firstname = $('#firstname').val();
+    var lastname = $('#lastname').val();
+    var email = $('#email').val();
+
+    data = {
+        "img": snap,
+        "firstname": firstname,
+        "lastname": lastname,
+        "email": email,
+    }
+
+    post(endpoint, data)
+}
+
+function login(){
+    var endpoint = "/login"
+    var snap = takeSnapshot();
+    post(endpoint, {"img": snap})
 }

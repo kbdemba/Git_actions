@@ -1,1 +1,3 @@
 FLASK_APP=sso_example.py
+NN_SEARCH_ADDRESS=localhost:5000
+FACEREC_ADDRESS=localhost:8080
