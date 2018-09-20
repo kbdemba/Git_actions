@@ -16,7 +16,6 @@ class User(UserMixin, db.Model):
 
 class SigninImage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    search_index = db.Column(db.Integer, index=True, unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 

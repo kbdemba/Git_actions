@@ -8,6 +8,10 @@ from app import app, db
 from app.models import User, SigninImage
 
 
+NN_KEY_DIFFERENCE = 10
+NN_SEARCH_KEY = 1
+
+
 class InvalidUsage(Exception):
 
     def __init__(self, message, status_code=400, payload=None):
@@ -63,15 +67,22 @@ def login():
         if len(embs) != 1:
             return render_template('login.html', title='Login')
         emb = embs[0]
-        nn_search_response = requests.post(
-            f'http://{os.environ.get("NN_SEARCH_ADDRESS")}/find',
-            json={'vector': emb}
+
+        nn_search_response = requests.put(
+            f'http://{os.environ.get("NN_SEARCH_ADDRESS")}/databases/db/features/{NN_SEARCH_KEY}',
+            json={'features': emb}
+        )
+
+        nn_search_response = requests.get(
+            f'http://{os.environ.get("NN_SEARCH_ADDRESS")}/search?database=db&key={NN_SEARCH_KEY}&limit=2'
         )
         nn_search = nn_search_response.json()
+        distances = nn_search.get('distances', 1000)
+        indexes = nn_search.get('indexes', 1000)
         print(nn_search)
-        if nn_search.get('distance', 1000) > .6:
+        if len(distances) < 2 or distances[1] > .6:
             return render_template('login.html', title='Login')
-        photo = SigninImage.query.filter_by(search_index=nn_search.get('index')).first()
+        photo = SigninImage.query.get(indexes[1] - NN_KEY_DIFFERENCE)
         login_user(photo.user)
         return redirect(url_for('welcome'))
     return render_template('login.html', title='Login')
@@ -91,21 +102,26 @@ def sign_up():
         if len(embs) != 1:
             raise InvalidUsage('Photo must have exactly 1 face')
         emb = embs[0]
-        nn_search_response = requests.post(
-            f'http://{os.environ.get("NN_SEARCH_ADDRESS")}/add',
-            json={'vector': emb}
-        )
+
         firstname = data['firstname']
         lastname = data['lastname']
         email = data['email']
 
         user = User(firstname=firstname, lastname=lastname, email=email)
-        nn_index = SigninImage(
-            search_index=nn_search_response.json().get('index'),
-            user=user
-        )
+        nn_index = SigninImage(user=user)
         db.session.add(user)
         db.session.add(nn_index)
+        db.session.flush()
+
+        key = nn_index.id + NN_KEY_DIFFERENCE
+        nn_search_response = requests.put(
+            f'http://{os.environ.get("NN_SEARCH_ADDRESS")}/databases/db/features/{key}',
+            json={'features': emb}
+        )
+
+        if nn_search_response.status_code != 200:
+            raise ('Problem storing embedding')
+
         db.session.commit()
         return redirect(url_for('login'))
     return render_template('sign_up.html', title='Sign Up')
