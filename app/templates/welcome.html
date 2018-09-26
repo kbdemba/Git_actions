@@ -21,9 +21,12 @@
         </ul>
       </div>
     </nav>
-    <div class="app container">
+    <div class="app container text-center">
         <div class="row">
-          Welcome {{ user.firstname }}!!! We have added {{ user.email }} to our favorite spam lists. To remove press the big red button below.
+          Welcome {{ user.firstname }}!!! We have added {{ user.email }} to our favorite spam lists. Enjoy!
+        </div>
+        <div>
+          <button class="btn btn-dark btn-lg" type="button" onclick="relocate('/delete')">Delete Account</button>
         </div>
     </div>
 

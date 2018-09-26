@@ -53,6 +53,23 @@ def logout():
     return redirect(url_for('login'))
 
 
+@app.route('/delete')
+def delete_account():
+    images = current_user.images
+    for image in images:
+        key = image.id + NN_KEY_DIFFERENCE
+        nn_search_response = requests.delete(
+            f'http://{os.environ.get("NN_SEARCH_ADDRESS")}/databases/db/features/{key}'
+        )
+        if nn_search_response.status_code != 200:
+            raise('Feature vector deletion failed')
+        db.session.delete(image)
+    db.session.delete(current_user)
+    logout_user()
+    db.session.commit()
+    return redirect(url_for('login'))
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -77,9 +94,8 @@ def login():
             f'http://{os.environ.get("NN_SEARCH_ADDRESS")}/search?database=db&key={NN_SEARCH_KEY}&limit=2'
         )
         nn_search = nn_search_response.json()
-        distances = nn_search.get('distances', 1000)
-        indexes = nn_search.get('indexes', 1000)
-        print(nn_search)
+        distances = nn_search.get('distances', [])
+        indexes = nn_search.get('indexes', [])
         if len(distances) < 2 or distances[1] > .6:
             return render_template('login.html', title='Login')
         photo = SigninImage.query.get(indexes[1] - NN_KEY_DIFFERENCE)
