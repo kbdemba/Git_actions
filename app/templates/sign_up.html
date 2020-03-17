@@ -14,7 +14,6 @@
     <nav class="navbar navbar-light bg-light justify-content-between"">
       <a class="navbar-brand" href="#">
         <img src="{{ url_for('static', filename='img/cachengo_logo.png') }}" height="30" width="119" alt="">
-        <img src="{{ url_for('static', filename='img/2000px-Orange_logo.svg.png') }}" height="60" width="60" alt="">
       </a>
       <div class="navbar-nav">
         <ul class="nav navbar-nav navbar-right">
@@ -36,15 +35,14 @@
           <label for="email">Email</label>
           <input type="email" class="form-control" id="email" placeholder="Enter email address">
         </div>
-        <div class="row">
-          <div class="col-lg-4" align="center">
-            <a href="#" id="start-camera">Touch here to start the camera</a>
-            <video id="camera-stream" height=400 width=400 class="invisible"></video>
+        <div class="row justify-content-center">
+          <div class="col-lg-6" >
+            <div id="vid_container">
+              <video id="video" class="" autoplay playsinline></video>
+              <canvas id="hiddenCanvas" class='hidden'></canvas>
+            </div>
             <p id="error-message"></p>
             <button class="btn btn-dark btn-lg" type="button" onclick="signUp()">Sign Up</button>
-
-            <!-- Hidden canvas element. Used for taking snapshot of video. -->
-            <canvas></canvas>
           </div>
         </div>
       </form>
@@ -52,7 +50,10 @@
 
     <script src="{{ url_for('static', filename='js/ext/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/ext/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/int/camera.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ext/DetectRTC.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ext/adapter.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/int/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/int/navigation.js') }}"></script>
-    </body>
+   
+  </body>
 </html>
