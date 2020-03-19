@@ -11,9 +11,9 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-light bg-light justify-content-between"">
+    <nav class="navbar navbar-light bg-light justify-content-between">
       <a class="navbar-brand" href="#">
-        <img src="{{ url_for('static', filename='img/cachengo_logo.png') }}" height="30" width="119" alt="">
+        <img src="{{ url_for('static', filename='img/cachengo_logo.png') }}" height="40" width="180" alt="cachengo logo">
       </a>
       <div class="navbar-nav">
         <ul class="nav navbar-nav navbar-right">
@@ -22,30 +22,35 @@
       </div>
     </nav>
     <div class="container">
-      <form>
-        <div class="form-group row">
-          <label for="firstname">First Name</label>
-          <input type="text" class="form-control" id="firstname" placeholder="Enter first name">
-        </div>
-        <div class="form-group row">
-          <label for="lastname">Last Name</label>
-          <input type="text" class="form-control" id="lastname" placeholder="Enter last name">
-        </div>
-        <div class="form-group row">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" placeholder="Enter email address">
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-lg-6" >
+       <div class="row signup-card p-4 my-4 align-items-center">
+        <div class="col-lg-6">
+          <div class="">
             <div id="vid_container">
               <video id="video" class="" autoplay playsinline></video>
               <canvas id="hiddenCanvas" class='hidden'></canvas>
             </div>
             <p id="error-message"></p>
-            <button class="btn btn-dark btn-lg" type="button" onclick="signUp()">Sign Up</button>
           </div>
         </div>
-      </form>
+         <div class="col-lg-6 ">
+           <h3 class="text-center mb-3 color-cachengo">Sign Up</h3>
+           <form class='mx-2'>
+             <div class="form-group row">
+               <label for="firstname">First Name</label>
+               <input type="text" class="form-control" id="firstname" placeholder="Enter first name">
+             </div>
+             <div class="form-group row">
+               <label for="lastname">Last Name</label>
+               <input type="text" class="form-control" id="lastname" placeholder="Enter last name">
+             </div>
+             <div class="form-group row">
+               <label for="email">Email</label>
+               <input type="email" class="form-control" id="email" placeholder="Enter email address">
+             </div>
+             <button class="btn btn-dark btn-block btn-lg mt-5 orange" type="button" onclick="signUp()">Sign Up</button>
+           </form>
+         </div>
+      </div>
     </div>
 
     <script src="{{ url_for('static', filename='js/ext/jquery.min.js') }}"></script>

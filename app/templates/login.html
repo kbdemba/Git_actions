@@ -11,9 +11,9 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-light bg-light justify-content-between"">
+    <nav class="navbar navbar-light bg-light justify-content-between">
       <a class="navbar-brand" href="#">
-        <img src="{{ url_for('static', filename='img/cachengo_logo.png') }}" height="30" width="119" alt="">
+        <img src="{{ url_for('static', filename='img/cachengo_logo.png') }}" height="40" width="180" alt="cachengo logo">
       </a>
       <div class="navbar-nav">
         <ul class="nav navbar-nav navbar-right">
@@ -22,21 +22,24 @@
       </div>
     </nav> 
     <div id="app container">
-      <div class=" mt-5 mx-3 row justify-content-center">
-        <div class='col-12'>
-          <h3 class="text-center">Sign In</h3>
-        </div>
-        <div class="col-lg-6 ">
-          <div id="vid_container">
-            <video id="video" class="" autoplay playsinline></video>
-            <canvas id="hiddenCanvas" class='hidden'></canvas>
+
+      <div class="row justify-content-center no-gutters ">
+        <div class=' px-1 py-4 my-1 mt-3 mx-3 row col-md-7 col-lg-6 login-card justify-content-center'>
+          <div class='col-12'>
+            <h4 class="text-center mb-3 color-cachengo">Sign In</h4>
           </div>
-        </div>    
-        <div class='col-12'></div>
-        <div class=''>
-          <button id="take-photo" class="btn btn-light btn-lg" type="button" onclick="login()">Login</button>
+          <div class="col-md-12">
+            <div id="vid_container">
+              <video id="video" class="" autoplay playsinline></video>
+              <canvas id="hiddenCanvas" class='hidden'></canvas>
+            </div>
+          </div>       
+          <div class='col-12'>
+            <button id="take-photo" class="btn btn-dark btn-lg btn-block orange mt-4" type="button" onclick="login()">Sign In</button>
+          </div>
         </div>
       </div>
+
     </div>
 
     <script src="{{ url_for('static', filename='js/ext/jquery.min.js') }}"></script>

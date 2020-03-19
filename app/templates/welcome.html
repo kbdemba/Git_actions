@@ -13,8 +13,7 @@
   <body>
     <nav class="navbar navbar-light bg-light justify-content-between"">
       <a class="navbar-brand" href="#">
-        <img src="{{ url_for('static', filename='img/cachengo_logo.png') }}" height="30" width="119" alt="">
-        <img src="{{ url_for('static', filename='img/2000px-Orange_logo.svg.png') }}" height="60" width="60" alt="">
+        <img src="{{ url_for('static', filename='img/cachengo_logo.png') }}" height="40" width="180" alt="cachengo logo">
       </a>
       <div class="navbar-nav">
         <ul class="nav navbar-nav navbar-right">
@@ -22,14 +21,18 @@
         </ul>
       </div>
     </nav>
-    <div class="app container text-center">
-        <div class="row">
-          Welcome {{ user.firstname }} to the Mobile CORD (M-CORD) on Arm demonstration, brought to you by Orange(R) and Cachengo(TM). This portal demonstration consists of several micro services representing the VNFs required initialize the fabric that allows the various nodes in front of you to communicate with one another. The authentication mechanism is implemented as a single sign-on (SSO) with two-factor authentication, utilizing the IMEI or MAC of your device, along with your face to establish your identity. While the VNFs are hosted on Arm Cortex processors, the neural networking and policy handling is processed on Arm Mali GPUs. This 42-node reference design is operating on less than 200 Watts of power.
-          <br>
-        </div>
-        <div>
-          <button class="btn btn-dark btn-lg" type="button" onclick="relocate('/delete')">Delete Account</button>
-        </div>
+    <div class="app container">
+      <div class="row p-4">
+        Welcome {{ user.firstname }} to our small demonstration of Facial Recognition on Cachengo devices. If you can
+        see this message it means that your device is currently running a simple webserver, a facial recognition server
+        and a nearest-neighbor indexing database. We won't go over all the details in this message but what this means
+        is that you are currently putting the device's networking, Arm Cortex processors and Mali GPU to work! All of
+        this is currently running on only one of our devices. Imagine what you can do with 1000s of them.
+        <br>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-danger btn-lg" type="button" onclick="relocate('/delete')">Delete Account</button>
+      </div>
     </div>
 
     <script src="{{ url_for('static', filename='js/ext/jquery.min.js') }}"></script>
