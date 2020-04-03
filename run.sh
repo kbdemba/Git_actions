@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-# Also docker build -t sso_example .
+docker build -t sso_example .
 docker network create -d bridge mybridge
 
 docker stop sso
@@ -18,4 +18,4 @@ docker run -d -v /db/index256:/db -e "ANN_INDEX_LENGTH=256" \
 docker run -d --network=mybridge --name=facerec cachengo/facerec:1.0
 
 docker run -d -p 5000:5000 -v /db/sso:/db -e "NN_SEARCH_ADDRESS=nn_search:1323" \
-  -e "FACEREC_ADDRESS=facerec:5000" --network=mybridge --name sso cachengo/sso_example:1.2
+  -e "FACEREC_ADDRESS=facerec:5000" --network=mybridge --name sso sso_example
