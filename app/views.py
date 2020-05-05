@@ -36,10 +36,10 @@ def handle_invalid_usage(error):
 
 @app.route('/healthcheck', methods=['GET'])
 def healthcheck():
-    return 'Ok ok branch test'
+    return 'Ok ok branch test'  
+ 
 
-
-@app.route('/index', methods=['GET'])
+@app.route('/index', methods=['GET'])  
 @app.route('/', methods=['GET'])
 @app.route('/welcome', methods=['GET'])
 @login_required
@@ -53,7 +53,7 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/delete')
+@app.route('/delete')  
 def delete_account():
     images = current_user.images
     for image in images:
