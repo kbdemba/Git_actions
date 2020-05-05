@@ -36,7 +36,6 @@ def handle_invalid_usage(error):
 
 @app.route('/healthcheck', methods=['GET'])
 def healthcheck():
-    wrong
     return 'Ok ok'   
 
 
