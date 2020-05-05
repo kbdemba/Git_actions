@@ -31,12 +31,12 @@ class InvalidUsage(Exception):
 def handle_invalid_usage(error):
     response = jsonify(error.to_dict())
     response.status_code = error.status_code
-    return response 
+    return response
 
 
 @app.route('/healthcheck', methods=['GET'])
 def healthcheck():
-    return 'Linne too long branch test Ok ok branch test Ok ok branch test Ok ok branch test'
+    return 'k branch test Ok ok branch test'
 
 
 @app.route('/index', methods=['GET'])
@@ -53,7 +53,7 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/delete')  
+@app.route('/delete')
 def delete_account():
     images = current_user.images
     for image in images:
