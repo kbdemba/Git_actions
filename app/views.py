@@ -31,15 +31,15 @@ class InvalidUsage(Exception):
 def handle_invalid_usage(error):
     response = jsonify(error.to_dict())
     response.status_code = error.status_code
-    return response
+    return response 
 
 
 @app.route('/healthcheck', methods=['GET'])
 def healthcheck():
-    return 'Ok ok branch test'  
- 
+    return 'Linne too long branch test Ok ok branch test Ok ok branch test Ok ok branch test'
 
-@app.route('/index', methods=['GET'])  
+
+@app.route('/index', methods=['GET'])
 @app.route('/', methods=['GET'])
 @app.route('/welcome', methods=['GET'])
 @login_required
