@@ -8,8 +8,8 @@ from app import app, db
 from app.models import User, SigninImage
 
 
-NN_KEY_DIFFERENCE = 10
-NN_SEARCH_KEY = 1
+NN_KEY_DIFFERENCE = 10 
+NN_SEARCH_KEY = 1 
 
 
 class InvalidUsage(Exception): 
