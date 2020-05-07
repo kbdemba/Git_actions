@@ -47,7 +47,7 @@ def welcome():
     return render_template('welcome.html', user=current_user)
 
 
-@app.route('/logout')
+@app.route('/logout') 
 def logout():
     logout_user()
     return redirect(url_for('login'))
