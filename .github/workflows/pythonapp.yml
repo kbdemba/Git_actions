@@ -57,27 +57,25 @@ name: Python application
 on: [pull_request]
 
 jobs:
-  built:
+  lint&test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Lint
+      - name: Lint with flake8
         uses: grantmcconnaughey/lintly-flake8-github-action@v1.0
         with:
           # The GitHub API token to create reviews with
           token: ${{ secrets.GITHUB_TOKEN }}
           # Fail if "new" violations detected or "any", default "new"
           failIf: new
-          # Additional arguments to pass to flake8, default "." (current directory)
-          args: "--ignore=E121,E123 ."
-      - name: Set up Python 3.8
+          args: ""
+      - name: Set up Python 3.6
         uses: actions/setup-python@v1
         with:
-          python-version: 3.8
+          python-version: 3.6
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install flake8 pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi  
       - name: run unit test
         run: |
