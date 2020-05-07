@@ -57,7 +57,7 @@ name: Control
 on: [pull_request]
 
 jobs:
-  built:
+  lint1:
     name: Lint using flake-8 no PR
     runs-on: ubuntu-18.04
     steps:
@@ -91,7 +91,7 @@ jobs:
   #         args: ""
   test:
     name: Run unit test
-    needs: lint
+    needs: lint1
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
