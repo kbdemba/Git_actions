@@ -12,7 +12,7 @@ NN_KEY_DIFFERENCE = 10
 NN_SEARCH_KEY = 1
 
 
-class InvalidUsage(Exception):
+class InvalidUsage(Exception): 
 
     def __init__(self, message, status_code=400, payload=None):
         Exception.__init__(self)
@@ -47,7 +47,7 @@ def welcome():
     return render_template('welcome.html', user=current_user)
 
 
-@app.route('/logout') 
+@app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('login'))
