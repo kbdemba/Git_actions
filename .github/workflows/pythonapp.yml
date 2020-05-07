@@ -57,7 +57,7 @@ name: Control
 on: [pull_request]
 
 jobs:
-  lint1:
+  built:
     name: Lint using flake-8 no PR
     runs-on: ubuntu-18.04
     steps:
