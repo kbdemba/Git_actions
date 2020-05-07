@@ -58,6 +58,7 @@ on: [pull_request]
 
 jobs:
   lint:
+    name: Lint using flake-8
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -70,6 +71,7 @@ jobs:
           failIf: new
           args: ""
   test:
+    name: Run unit test
     needs: lint
     runs-on: ubuntu-latest
     steps:
