@@ -52,7 +52,7 @@
 #           # Additional arguments to pass to flake8, default "." (current directory)
 #           args: "--ignore=E121,E123 ."
 
-name: Python application
+name: Control
 
 on: [pull_request]
 
@@ -70,6 +70,7 @@ jobs:
           failIf: new
           args: ""
   test:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
