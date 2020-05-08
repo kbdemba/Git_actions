@@ -47,8 +47,11 @@ jobs:
           python-version: 3.8
       - name: Install dependencies
         run: |
+          echo 11
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi  
       - name: run unit test
         run: |
+          echo 22
           python -m unittest
+          echo 33
