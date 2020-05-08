@@ -1,0 +1,57 @@
+name: Control
+
+on: [pull_request]
+
+jobs:
+  # lint:
+  #   name: Lint using flake-8 no PR
+  #   runs-on: ubuntu-18.04
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Set up Python 3.8
+  #       uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.8
+  #     - name: Install dependencies
+  #       run: |
+  #         python -m pip install --upgrade pip
+  #         pip install flake8 pytest
+  #     - name: Lint with flake8
+  #       run: |
+  #         # stop the build if there are Python syntax errors or undefined names
+  #         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+  #         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+  #         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+  lint:
+    name: Lint using flake-8
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Lint with flake8
+        uses: grantmcconnaughey/lintly-flake8-github-action@v1.0
+        with:
+          # The GitHub API token to create reviews with
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Fail if "new" violations detected or "any", default "new"
+          failIf: new
+          args: ""
+  test:
+    name: Run unit test
+    needs: lint
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          echo 11
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi  
+      - name: run unit test
+        run: |
+          echo 22
+          python -m unittest
+          echo 33
